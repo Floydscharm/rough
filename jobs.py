@@ -1,5 +1,7 @@
 import streamlit as st
 
+from pages.home import set_page
+
 # Configure Streamlit page for mobile-friendly view
 st.set_page_config(page_title="My Jobs", layout="centered")
 
@@ -93,27 +95,25 @@ st.markdown("""
         color: gray;
     }
 
-    .bottom-nav {
-        position: fixed;
+    .bottom-navbar {
+        position: responsive;
         bottom: 0;
+        left: 0;
         width: 100%;
-        background-color: #1A1A1A;
-        padding: 10px 0;
+        background-color: #09090B;
+        padding: 15px 0;
         display: flex;
         justify-content: space-around;
-        border-top: 1px solid #444;
+        border-top: 2px solid white;
+        z-index: 1000;
     }
-
-    .bottom-nav button {
-        background: transparent;
-        border: none;
+    .nav-button {
+        font-size: 24px;
         color: white;
-        font-size: 18px;
         cursor: pointer;
     }
-
-    .active-nav {
-        color: #A855F7;
+    .nav-button:hover {
+        color: #6739b7;
     }
     
     </style>
@@ -193,17 +193,22 @@ elif st.session_state.current_page == "profile":
     st.markdown("<h4 style='color: white;'>Profile Page</h4>", unsafe_allow_html=True)
     st.markdown("<p style='color: white;'>View and edit your profile here.</p>", unsafe_allow_html=True)
 
-# Bottom Navigation Bar
-st.markdown("""
-    <div class="bottom-nav">
-        <button class="{home}" onclick="window.location.reload();">🏠</button>
-        <button class="{search}" onclick="window.location.reload();">🔍</button>
-        <button class="{jobs}" onclick="window.location.reload();">💼</button>
-        <button class="{profile}" onclick="window.location.reload();">👤</button>
+# Fixed Bottom Navbar
+st.markdown(
+    """
+    <div class="bottom-navbar">
+        <span class="nav-button" onclick="window.location.href='?page=home'">🏠</span>
+        <span class="nav-button" onclick="window.location.href='?page=search'">🔍</span>
+        <span class="nav-button" onclick="window.location.href='?page=job'">👜</span>
+        <span class="nav-button" onclick="window.location.href='?page=profile'">👤</span>
     </div>
-""".format(
-    home="active-nav" if st.session_state.current_page == "home" else "",
-    search="active-nav" if st.session_state.current_page == "search" else "",
-    jobs="active-nav" if st.session_state.current_page == "jobs" else "",
-    profile="active-nav" if st.session_state.current_page == "profile" else ""
-), unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
+
+# Handling Navbar Clicks with Session State
+if "page" in st.experimental_get_query_params():
+    selected_page = st.experimental_get_query_params()["page"][0]
+    if selected_page in ["home", "search", "job", "profile"]:
+        set_page(selected_page)
+
