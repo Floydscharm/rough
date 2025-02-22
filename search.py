@@ -1,126 +1,98 @@
 import streamlit as st
 
-# Page Configuration
-st.set_page_config(page_title="Search Jobs", layout="wide")
+from pages.home import set_page
 
-# Custom CSS for Styling
-st.markdown(
-    """
+# Set Page Config for better responsiveness
+st.set_page_config(page_title="Search", layout="centered")
+
+# Custom CSS for styling and responsiveness
+st.markdown("""
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
     body {
-        background-color: #09090B;
-    }
-    .top-navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: #09090B;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 2px solid white;
-        z-index: 1000;
-    }
-    .top-navbar .menu-icon, .top-navbar .profile-icon {
-        font-size: 24px;
-        color: white;
-        cursor: pointer;
-    }
-    .center-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        width: 100%;
-        margin-top: 80px;
-    }
-    .search-bar {
-        display: flex;
-        align-items: center;
-        background-color: #333333;
-        padding: 10px;
-        border-radius: 10px;
-        width: 50%;
-        margin: 20px auto;
-    }
-    .search-bar input {
-        background-color: transparent;
-        border: none;
-        color: white;
-        width: 100%;
-        outline: none;
-        font-size: 16px;
-        padding-left: 10px;
-    }
-    .search-icon {
-        font-size: 20px;
-        color: white;
-    }
-    .filter-widget {
-        background-color: #333333;
-        padding: 10px;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 20px;
-        width: 60%;
-    }
-    .filter-button {
-        background-color: rgba(0, 0, 0, 0.2);
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .filter-button:hover {
-        background-color: #6739b7;
-    }
-    .section-title {
-        color: white;
-        font-size: 23px;
+        background-color: #09090b;
         font-family: 'Poppins', sans-serif;
-        font-weight: 600;
-        margin-top: 30px;
-        text-align: center;
     }
-    .horizontal-scroll {
+
+    /* Centering and styling the search bar */
+    .search-container {
         display: flex;
-        overflow-x: auto;
-        padding: 10px 0;
-        gap: 10px;
         justify-content: center;
+        margin-bottom: 20px;
     }
+
+    .search-box {
+        width: 80%;
+        max-width: 400px;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+    }
+
+    .search-icon {
+        background-color: white;
+        padding: 12px;
+        border-radius: 8px;
+        margin-left: -40px;
+        cursor: pointer;
+    }
+
+    /* Responsive Filters */
+    .filters {
+        background-color: #3E3E3E;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .filter-button {
+        background-color: #5A5A5A;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 14px;
+        margin: 5px;
+        color: white;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    /* Profile Card */
     .profile-card {
-        display:flex;
-        flex-direction:column;
-        align-items:centre;
-        background-color: black;
+        background-color: #1A1A1A;
         padding: 15px;
         border-radius: 10px;
-        color: white;
         text-align: center;
-        min-width: 180px;
-        max-width: 180px;
-        box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
-    }
-    .connect-btn {
-        border: 2px solid #6739b7;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
+        margin-bottom: 15px;
         width: 100%;
+    }
+
+    .profile-img {
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        margin-bottom: 10px;
+    }
+
+    .connect-btn {
+        background-color: transparent;
+        border: 1px solid #A855F7;
+        color: #A855F7;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
         margin-top: 10px;
     }
-    .connect-btn:hover {
-        background-color: #6739b7;
+        .connect-btn:hover {
+        background-color: #A855F7;
     }
+
     .bottom-navbar {
-        position: fixed;
+        position: responsive;
         bottom: 0;
         left: 0;
         width: 100%;
@@ -139,80 +111,61 @@ st.markdown(
     .nav-button:hover {
         color: #6739b7;
     }
+    
+
+    /* Responsive layout */
+    @media (max-width: 768px) {
+        .search-box {
+            width: 90%;
+        }
+        .filter-button {
+            font-size: 12px;
+        }
+    }
     </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Session State for Navigation
-if "page" not in st.session_state:
-    st.session_state.page = "home"
-
-# Function to Update Page
-def set_page(page_name):
-    st.session_state.page = page_name
-
-# Fixed Top Navbar
-st.markdown(
-    """
-    <div class="top-navbar">
-        <span class="menu-icon">☰</span>
-        <span style="color:white; font-size:18px;">Search Jobs</span>
-        <span class="profile-icon">👤</span>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-# Centered Content
-st.markdown('<div class="center-content">', unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Search Bar
-st.markdown('<div class="search-bar">', unsafe_allow_html=True)
-search_query = st.text_input("", placeholder="Search for jobs...", label_visibility="collapsed")
+st.markdown('<div class="search-container">', unsafe_allow_html=True)
+search_query = st.text_input("", placeholder="Search", key="search")
+st.markdown('<button class="search-icon">🔍</button>', unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Filter Widget
-st.markdown('<div class="filter-widget">', unsafe_allow_html=True)
-col1, col2, col3, col4, col5, col6 = st.columns(6)
-filters = ["50% Match", "60% Match", "70% Match", "80% Match", "90% Match", "100% Match"]
-selected_filter = None
+# Filters Section
+st.markdown('<div class="filters">', unsafe_allow_html=True)
+st.markdown("<h4 style='color: white;'>Filters</h4>", unsafe_allow_html=True)
 
-for i, percentage in enumerate(filters):
-    if locals()[f"col{i+1}"].button(percentage):
-        selected_filter = percentage
+# Responsive Filter Layout
+filter_cols = st.columns([1, 1, 1])
+filter_labels = ["50%", "60%", "70%", "80%", "90%", "100%"]
+
+for i, label in enumerate(filter_labels):
+    with filter_cols[i % 3]:  # Distribute buttons across columns
+        st.button(label, key=f"filter_{label}")
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-# "You Might Also Be Interested" Section
-st.markdown('<p class="section-title">You Might Also Be Interested</p>', unsafe_allow_html=True)
+# "You might also be interested" Section
+st.markdown("<h4 style='color: white;'>You might also be interested</h4>", unsafe_allow_html=True)
 
-# Sample Profiles for Horizontal Scrolling
+# Profile Data
 profiles = [
-    {"name": "Alice Johnson", "company": "Google", "image": "👩‍💼"},
-    {"name": "Bob Smith", "company": "Amazon", "image": "👨‍💼"},
-    {"name": "Charlie Brown", "company": "Microsoft", "image": "👨‍💻"},
-    {"name": "Diana Ross", "company": "Meta", "image": "👩‍💻"},
-    {"name": "Edward Norton", "company": "Tesla", "image": "👨‍🔧"},
+    {"name": "Sneha Chakraborty", "job": "Works at TGM", "image": "https://via.placeholder.com/70"},
+    {"name": "Atrayee Munshi", "job": "Works at TGM", "image": "https://via.placeholder.com/70"},
+    {"name": "Anusha Sharma", "job": "Works at TGM", "image": "https://via.placeholder.com/70"}
 ]
 
-st.markdown('<div class="horizontal-scroll">', unsafe_allow_html=True)
+# Mobile-friendly profile layout
+profile_cols = st.columns(len(profiles)) if st.session_state.get("device") != "mobile" else st.columns(1)
 
-for profile in profiles:
-    with st.container():
+for col, profile in zip(profile_cols, profiles):
+    with col:
         st.markdown('<div class="profile-card">', unsafe_allow_html=True)
-        st.markdown(f"<p style='font-size:40px;'>{profile['image']}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p class='profile-name'>{profile['name']}</p>", unsafe_allow_html=True)
-        st.markdown(f"<p class='job-details'>🏢 {profile['company']}</p>", unsafe_allow_html=True)
-        connect_key = f"connect_{profile['name'].replace(' ', '_')}"
-        if st.button("Connect", key=connect_key):
-            st.markdown('<style>.connect-btn { background-color: #6739b7 !important; }</style>', unsafe_allow_html=True)
+        st.image(profile["image"], width=70)
+        st.markdown(f"<p style='color: white;'>{profile['name']}</p>", unsafe_allow_html=True)
+        st.markdown(f"<p style='color: gray;'>{profile['job']}</p>", unsafe_allow_html=True)
+        st.markdown('<button class="connect-btn">Connect</button>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)  # Close center content
-
 # Fixed Bottom Navbar
 st.markdown(
     """
@@ -225,3 +178,9 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+# Handling Navbar Clicks with Session State
+if "page" in st.experimental_get_query_params():
+    selected_page = st.experimental_get_query_params()["page"][0]
+    if selected_page in ["home", "search", "job", "profile"]:
+        set_page(selected_page)
