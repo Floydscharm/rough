@@ -108,7 +108,10 @@ profiles = [
     {"name": "Sneha Chakraborty", "match": "95% match", "desc": "Freshman at Academy of Technology", "connections": "7 mutual connection", "new": "New", "image": "arrow-left.png "},
     {"name": "Atrayee Munshi", "match": "90% match", "desc": "Worked at TCS", "connections": "10 mutual connection", "new": "2 days ago", "image": "top employees.png"},
     {"name": "Anushree Oraon", "match": "90% match", "desc": "Freshman at Academy of Technology", "connections": "2 mutual connection", "new": "2 days ago", "image": "top employees.png"},
-]
+    {"name": "Sneha Chakraborty", "match": "95% match", "desc": "Freshman at Academy of Technology", "connections": "7 mutual connection", "new": "New", "image": "arrow-left.png "},
+    {"name": "Atrayee Munshi", "match": "90% match", "desc": "Worked at TCS", "connections": "10 mutual connection", "new": "2 days ago", "image": "top employees.png"},
+    {"name": "Anushree Oraon", "match": "90% match", "desc": "Freshman at Academy of Technology", "connections": "2 mutual connection", "new": "2 days ago", "image": "top employees.png"},
+    ]
 
 # Page title
 st.markdown("""
