@@ -76,28 +76,31 @@ st.markdown("""
 # Session state to handle transition
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
-
+st.title("Login")
 def login():
     st.session_state.logged_in = True
     st.experimental_rerun()  # Rerun the app to navigate to the home page
 
+            
+def button2():
+    with col2:
+            st.button("Login with Google", key="google_btn", help="Login with Google", args=("google",))
+            st.button("Login with Github", key="github_btn", help="Login with Github", args=("github",))
 if not st.session_state.logged_in:
     with st.container():
         st.markdown('<div class="login-container">', unsafe_allow_html=True)
-        st.markdown('<p class="login-title">Login</p>', unsafe_allow_html=True)
+        
 
         username = st.text_input("User name", key="username")
         password = st.text_input("Password", type="password", key="password")
-
         if st.button("Login", key="login_btn", help="Click to login"):
-            if username and password:
-                login()
-
+                if username and password:
+                    login()
+        
         st.markdown('<p class="or-divider">──────── OR ────────</p>', unsafe_allow_html=True)
         st.markdown('<p class="register-text">Don’t have an account? <span class="register-link">Register</span></p>', unsafe_allow_html=True)
-
-        st.button("Login with Google", key="google_btn", help="Login with Google", args=("google",))
-        st.button("Login with Github", key="github_btn", help="Login with Github", args=("github",))
+        col1,col2,col3 = st.columns([1,0.6,1],vertical_alignment="bottom",gap="small")
+        button2()
         
         st.markdown("</div>", unsafe_allow_html=True)
 
