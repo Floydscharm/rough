@@ -38,7 +38,7 @@ st.markdown("""
             border-radius: 20px;
             font-size: 14px;
             margin-right: 5px;
-            border: 1px solid white;
+            border: 1px solid #6739B7;
         }
         .apply-save-buttons {
             display: flex;
@@ -47,7 +47,7 @@ st.markdown("""
         }
         .apply-btn, .save-btn {
             padding: 10px 20px;
-            border-radius: 10px;
+            border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
@@ -64,14 +64,18 @@ st.markdown("""
             border: 2px solid #6739B7;
         }
         .about-job {
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 50px;
+            font-weight: medium;
             margin: 20px 0;
         }
         .job-description {
             font-size: 14px;
             line-height: 1.6;
-            color: #d1d1d1;
+            color: #f4f4f4;
+            padding: 20px;
+            background-color: #333333;
+            overflow x-axis: scroll;
+            width: 100%;
         }
     .bottom-navbar {
         position: responsive;
@@ -128,7 +132,7 @@ with st.container():
     """, unsafe_allow_html=True)
 
     # About Job Section
-    st.markdown('<p class="about-job">About the job</p>', unsafe_allow_html=True)
+    st.markdown('<p class="about-job" >About the job</p>', unsafe_allow_html=True)
 
     # Job Description
     job_description = """
@@ -142,10 +146,34 @@ with st.container():
     **Responsibilities:**
     - Content Creation: Write engaging and informative content for blogs, websites, newsletters, and social media platforms.
     - Presentation Support: Assist in the creation of visually appealing presentations that communicate complex ideas clearly and effectively.
-    - Design Marketing Materials: Create eye-catching banners, posters, social media graphics, and other marketing materials.
+    - Design Marketing Materials: Create eye-catching banners, posters, social media graphics, and other marketing materials.materials to support campaigns.
+    -Charts & Data Visualization: Develop aesthetically pleasing and easy-to-understand charts, infographics, and other data visuals.
+    -Brand Consistency: Ensure all content and designs align with the company’s brand guidelines and maintain a consistent voice across all touchpoints.
+    -Collaboration: Work closely with the marketing, product, and sales teams to understand content and design needs.
+
+    Qualifications:
+    -Proven experience in content writing, design, and marketing materials.
+    -Strong proficiency in design tools such as Adobe Creative Suite (Illustrator, Photoshop, InDesign), Canva, and PowerPoint.
+    -Excellent writing and editing skills with a keen eye for grammar and style.
+    -Strong understanding of design principles, color theory, typography, and visual hierarchy.
+    -Ability to create compelling presentations and visuals that engage and inform.
+    -Ability to work independently and manage multiple projects in a fast-paced environment.
+    -A portfolio showcasing design and content work is a plus.
+
+    Additional Skills preferred:
+    -Experience with HTML/CSS or other web design tools.
+    -Familiarity with video editing or animation tools (e.g., Adobe Premiere, After Effects).
+
+    What We Offer:
+    -Opportunity to work in a dynamic, creative environment.
+    -Flexible work hours and remote work.
+    -A chance to make a significant impact in a growing company.
+
+    How to Apply:
+    Please submit your resume along with a portfolio showcasing your design and content work. We look forward to seeing how you can contribute to our team!
     """
 
-    st.markdown(f'<p class="job-description">{job_description}</p>', unsafe_allow_html=True)
+    st.markdown(f'<p class="job-description; style="padding:30px">{job_description}</p>', unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
